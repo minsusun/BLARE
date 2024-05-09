@@ -15,7 +15,7 @@ class Utils:
 
     @classmethod
     def is_chat(cls, model: str):
-        return 'turbo' in model
+        return 'turbo' in model and 'instruct' not in model
 
     @classmethod
     def is_code(cls, model: str):

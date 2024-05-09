@@ -82,7 +82,7 @@ class KeyManager:
 class QueryAgent:
     def __init__(
         self,
-        model: str = 'text-davinci-003',
+        model: str = 'gpt-3.5-turbo-instruct',
         max_generation_len: int = 128,
         temperature: float = 0,
         retrieval_kwargs: Dict[str, Any] = {},
@@ -618,7 +618,7 @@ def write_worker(output_file: str, output_queue: Queue, size: int = None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='strategyqa', choices=['strategyqa', '2wikihop', 'wikiasp', 'asqa'])
-    parser.add_argument('--model', type=str, default='text-davinci-003', choices=['code-davinci-002', 'text-davinci-002', 'text-davinci-003', 'gpt-3.5-turbo-0301'])
+    parser.add_argument('--model', type=str, default='text-davinci-003', choices=['code-davinci-002', 'text-davinci-002', 'text-davinci-003', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo-instruct'])
     parser.add_argument('--input', type=str, default=None)
     parser.add_argument('--output', type=str, default=None)
     parser.add_argument('--index_name', type=str, default='test')
