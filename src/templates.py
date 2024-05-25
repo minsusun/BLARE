@@ -774,7 +774,7 @@ class ApiReturn:
                     decontextualize=decontextualize,
                     askquestion=askquestion)
                 return keep
-            elif mask_method == 'blend':
+            elif mask_method in {'blend-decontextualize', 'blend-askquestion'}:
                 # when mask with blend mode
                 # tokens with probs in (0, beta_explicit) -> explicit query generation
                 # tokens with probs in (beta_explicit, beta_implicit) -> implicit query generation
