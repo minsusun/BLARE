@@ -206,7 +206,7 @@ def eval(
             print('P->', pred)
             print()
             print('G->', ref)
-            input()
+            print()
 
         # retrieval
         ret_accs.append([])

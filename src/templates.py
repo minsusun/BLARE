@@ -100,7 +100,7 @@ class CtxPrompt:
                 print('-' * 10)
                 print(ct)
                 print('-' * 10)
-            input()
+            print()
         if is_single:
             assert len(post_clean_texts) == 1
             return post_clean_texts[0]
@@ -371,7 +371,7 @@ class CtxPrompt:
                 pass
         if debug:
             print('4->', questions)
-            input()
+            print()
         return questions
 
     def get_query_for_retrieval(self):

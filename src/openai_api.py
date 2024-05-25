@@ -322,7 +322,7 @@ class QueryAgent:
             print('Tokens ->', generations[0].tokens)
             print('Probs ->', generations[0].token_probs)
             print('Gold ->', queries[0].gold_output)
-            input('-' * 50 + '\n')
+            print('-' * 50 + '\n')
 
         return generations
 
