@@ -737,6 +737,7 @@ class ApiReturn:
         low_prob: float = None,
         mask_prob: float = None,
         mask_method: str = 'simple',
+        mask_blend_ratio: float = 0,
         n_gen_char_in_prompt: int = 0,
         api_key: str = None,
     ):
@@ -772,6 +773,38 @@ class ApiReturn:
                     detect_low_terms=True,
                     decontextualize=decontextualize,
                     askquestion=askquestion)
+                return keep
+            elif mask_method == 'blend':
+                # when mask with blend mode
+                # tokens with probs in (0, beta_explicit) -> explicit query generation
+                # tokens with probs in (beta_explicit, beta_implicit) -> implicit query generation
+                beta_explicit = mask_prob * mask_blend_ratio
+                beta_implicit = mask_prob
+
+                if n_gen_char_in_prompt == 0:
+                    context = ''
+                else:
+                    context = self.prompt[-n_gen_char_in_prompt:]
+                decontextualize = 'decontextualize' in mask_method
+                askquestion = 'askquestion' in mask_method
+
+                keep_explicit = CtxPrompt.get_queries_from_text_for_retrieval(
+                    context = context,
+                    tokens = self.tokens,
+                    probs = self.probs,
+                    low = beta_explicit,
+                    api_key=api_key,
+                    detect_low_terms=True,
+                    decontextualize=decontextualize,
+                    askquestion=askquestion)
+                
+                keep_implicit = [(t if p > beta_implicit and p <= beta_explicit else ' ') for t, p in zip(self.tokens, self.probs)]
+
+                # keep: List[str]
+                # keep_explicit: List[str]
+                # keep_implicit: Str
+                keep = keep_explicit + [keep_implicit]
+
                 return keep
             else:
                 raise NotImplementedError
