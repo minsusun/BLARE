@@ -799,6 +799,7 @@ class ApiReturn:
                     askquestion=askquestion)
                 
                 keep_implicit = [(t if p > beta_implicit and p <= beta_explicit else ' ') for t, p in zip(self.tokens, self.probs)]
+                keep_implicit = ''.join(keep_implicit).strip()
 
                 # keep: List[str]
                 # keep_explicit: List[str]
