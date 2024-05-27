@@ -127,7 +127,7 @@ async def async_chatgpt(
     return await asyncio.gather(*async_responses)
 
 
-@retry_with_exponential_backoff
+@retry_with_exponential_backoff(max_retries=10)
 def openai_api_call(*args, **kwargs):
     model = kwargs['model']
     is_chat_model = Utils.is_chat(model)
