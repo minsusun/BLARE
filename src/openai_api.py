@@ -116,6 +116,7 @@ class QueryAgent:
         self.look_ahead_filter_prob = retrieval_kwargs.get('look_ahead_filter_prob', 0)
         self.look_ahead_mask_prob = retrieval_kwargs.get('look_ahead_mask_prob', 0)
         self.look_ahead_mask_method = retrieval_kwargs.get('look_ahead_mask_method', 'simple')
+        self.look_ahead_mask_blend_use_overlap = retrieval_kwargs.get('look_ahead_mask_blend_use_overlap', False)
         self.look_ahead_mask_blend_ratio = retrieval_kwargs.get('look_ahead_mask_blend_ratio', 0)
         self.look_ahead_pre_retrieval = retrieval_kwargs.get('look_ahead_pre_retrieval', '')
         assert self.look_ahead_pre_retrieval in {'', 'first', 'first-keep', 'all'}
@@ -398,6 +399,7 @@ class QueryAgent:
                     low_prob=self.look_ahead_filter_prob,
                     mask_prob=self.look_ahead_mask_prob,
                     mask_method=self.look_ahead_mask_method,
+                    mask_blend_use_overlap=self.look_ahead_mask_blend_use_overlap,
                     mask_blend_ratio=self.look_ahead_mask_blend_ratio,
                     n_gen_char_in_prompt=q.gen_len,
                     api_key=api_key) for ar, (_, q) in zip(apireturns, queries)]
@@ -668,6 +670,7 @@ if __name__ == '__main__':
         'look_ahead_filter_prob': 0.0,
         'look_ahead_mask_prob': 0.0,
         'look_ahead_mask_method': 'simple',
+        'look_ahead_mask_blend_use_overlap': False,
         'look_ahead_mask_blend_ratio': 0.0,
         'look_ahead_boundary': [],
         'only_use_look_ahead': False,

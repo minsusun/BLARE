@@ -738,6 +738,7 @@ class ApiReturn:
         mask_prob: float = None,
         mask_method: str = 'simple',
         mask_blend_ratio: float = 0,
+        mask_blend_use_overlap: bool = False,
         n_gen_char_in_prompt: int = 0,
         api_key: str = None,
     ):
@@ -798,7 +799,11 @@ class ApiReturn:
                     decontextualize=decontextualize,
                     askquestion=askquestion)
                 
-                keep_implicit = [(t if p > beta_implicit and p <= beta_explicit else ' ') for t, p in zip(self.tokens, self.probs)]
+                keep_implicit = []
+                if mask_blend_use_overlap:
+                    keep_implicit = [(t if p > beta_implicit else ' ') for t, p in zip(self.tokens, self.probs)]
+                else:
+                    keep_implicit = [(t if p > beta_implicit and p <= beta_explicit else ' ') for t, p in zip(self.tokens, self.probs)]
                 keep_implicit = ''.join(keep_implicit).strip()
 
                 # keep: List[str]

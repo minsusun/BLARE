@@ -10,6 +10,7 @@
     "look_ahead_filter_prob": 0.8,
     "look_ahead_mask_prob": 0.4,
     "look_ahead_mask_method": "blend-askquestion",
+    "look_ahead_mask_blend_use_overlap": false,
     "look_ahead_mask_blend_ratio": 0.5,
     "only_use_look_ahead": true,
     "truncate_at_boundary": "sentence",
