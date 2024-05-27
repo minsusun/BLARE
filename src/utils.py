@@ -36,7 +36,7 @@ def retry_with_exponential_backoff(
     initial_delay: float = 1,
     exponential_base: float = 2,
     jitter: bool = True,
-    max_retries: int = 5,
+    max_retries: int = 10,
     errors_to_catch: tuple = (openai.error.RateLimitError, openai.error.ServiceUnavailableError, openai.error.APIError, openai.error.Timeout, NoKeyAvailable),
     errors_to_raise: tuple = (openai.error.APIConnectionError, openai.error.InvalidRequestError, openai.error.AuthenticationError),
 ):
@@ -127,7 +127,7 @@ async def async_chatgpt(
     return await asyncio.gather(*async_responses)
 
 
-@retry_with_exponential_backoff(max_retries=10)
+@retry_with_exponential_backoff
 def openai_api_call(*args, **kwargs):
     model = kwargs['model']
     is_chat_model = Utils.is_chat(model)
