@@ -8,4 +8,4 @@ Basic quickstart is as same as the original repo's([link](https://github.com/min
 
 For further information or any issues, please leave an issue on this repository
 
-![image](image.png)
+![image](doc/img/image.png)
